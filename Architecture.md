@@ -116,7 +116,7 @@ Les particularités :
 ## 3. Architecture Globale
 L'architecture globale repose sur Docker-in-Docker (DinD), ce qui permet à chaque serveur d'exécuter des conteneurs Docker indépendamment. Nous présentons ici un schéma simplifié de l'architecture :
 
-
+```
 +----------------------+
 | load-balancer-server |
 | (Nginx)              |
@@ -151,7 +151,7 @@ L'architecture globale repose sur Docker-in-Docker (DinD), ce qui permet à chaq
 | simple-webapp)       |
 | Ports: 8000, 5000    |
 +----------------------+
-
+```
 
 ------------------------------------------------------------------------------------------------------------
 
