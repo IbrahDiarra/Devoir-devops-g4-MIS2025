@@ -62,7 +62,7 @@ L'architecture est composée de plusieurs serveurs conteneurisés, chacun héber
 L'architecture de notre projet repose sur plusieurs dossiers organisés de la manière suivante :
 
 ```
-📂 projet-devops  
+📂 Devoir-devops-g4-mis2025  
  ├── 📂 load-balancer-server  
  │   ├── 📄 compose.yml  
  │   ├── 📄 Dockerfile  
