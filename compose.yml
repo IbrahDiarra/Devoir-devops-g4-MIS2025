@@ -1,0 +1,96 @@
+version: '3.8'
+
+services:
+  # Load Balancer
+  load-balancer-server:
+    build:
+      context: ./load-balancer-server/
+      dockerfile: Dockerfile
+    container_name: load-balancer-server
+    ports:
+      - "80:80"
+    privileged: true
+    volumes:
+      - load-balancer-data:/var/lib/docker # Persistance des données Docker
+    environment:
+      DOCKER_TLS_CERTDIR: "" # Désactive TLS pour simplifier l'accès local
+
+
+
+  # Serveur CI/CD (Jenkins + SonarQube)
+  cicd-server:
+    build:
+      context: ./cicd-server/
+      dockerfile: Dockerfile
+    container_name: cicd-server
+    ports:
+      - "8080:8080"  # Jenkins
+      - "9000:9000"  # SonarQube
+    privileged: true
+    volumes:
+      - cicd-data:/var/lib/docker # Persistance des données Docker
+    environment:
+      DOCKER_TLS_CERTDIR: "" # Désactive TLS pour simplifier l'accès local
+
+
+  # Serveur de Monitoring (Prometheus + Grafana)
+  monitoring-server:
+    build:
+      context: ./monitoring-server/
+      dockerfile: Dockerfile
+    container_name: monitoring-server
+    ports:
+      - "9090:9090"  # Prometheus
+      - "3000:3000"  # Grafana
+    privileged: true
+    volumes:
+      - monitoring-data:/var/lib/docker # Persistance des données Docker
+    environment:
+      DOCKER_TLS_CERTDIR: "" # Désactive TLS pour simplifier l'accès local
+
+  # Serveur de Base de Données (MariaDB + Redis)
+  database-server:
+    build:
+      context: ./database-server/
+      dockerfile: Dockerfile
+    container_name: database-server
+    ports:
+      - "3306:3306"  # mariadb-server
+      - "6379:6379"  # redis-server
+    privileged: true
+    volumes:
+      - database-data:/var/lib/docker # Persistance des données Docker
+    environment:
+      DOCKER_TLS_CERTDIR: "" # Désactive TLS pour simplifier l'accès local
+
+
+  # Serveur d'Applications (hébergeant plusieurs applications)
+  application-server:
+    build:
+      context: ./application-server/
+      dockerfile: Dockerfile
+    container_name: application-server
+    ports:
+      - "8000:8000"  # static-website-example
+      - "5000:5000"  # simple-webapp-color
+    privileged: true
+    volumes:
+      - application-data:/var/lib/docker # Persistance des données Docker
+    environment:
+      DOCKER_TLS_CERTDIR: "" # Désactive TLS pour simplifier l'accès local
+
+volumes:
+  load-balancer-data:
+    driver: local
+  
+  cicd-data:
+    driver: local
+
+  monitoring-data:
+    driver: local
+  
+  database-data:
+    driver: local
+  
+  application-data:
+    driver: local

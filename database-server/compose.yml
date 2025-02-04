@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:11.4.3
+    container_name: mariadb-server
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: mis2025
+      MYSQL_DATABASE: mis2025
+      MYSQL_USER: mis2025
+      MYSQL_PASSWORD: mis2025
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis-server
+    ports:
+      - "6379:6379"

@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  jenkins:
+    build:
+      context: ./jenkins  # Utilise le Dockerfile existant
+      dockerfile: Dockerfile
+    container_name: jenkins-server
+    user: root  # Permet à Jenkins d'utiliser Docker
+    privileged: true  # Permet l'accès au daemon Docker
+    ports:
+      - "8080:8080"
+    restart: always
+
+  sonarqube:
+    image: sonarqube:lts-community
+    container_name: sonar-server
+    ports:
+      - "9000:9000"
+    restart: always

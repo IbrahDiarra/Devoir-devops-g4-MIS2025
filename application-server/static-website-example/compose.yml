@@ -1,0 +1,9 @@
+services:
+  app:
+    container_name: static-website-example
+    image: static-website-example
+    ports:
+      - 8000:80
+
+
+
